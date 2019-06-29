@@ -1,0 +1,10 @@
+Hi everyone,
+
+{{summariseCol ds=(filterBy ds='default' cols='period' filterByThis='2019-20') col='period' operator='count'}} companies filed overnight.
+{{#each (makeList ds=(filterBy ds='default' cols='period,important' filterByThis='2019-20,yes'))}}
+{{#if DiffMedianHourlyPercent}}{{EmployerName}} reported a median hourly pay gap of {{DiffMedianHourlyPercent}}%.{{/if}} {{#if difference}}This is {{difference}} percentage points different from last year.{{/if}}
+{{/each}}
+Here are today's worst 10:
+
+{{#each (makeList ds=(sortDescending ds=(filterBy ds='default' cols='period' filterByThis='2019-20') sortBy="DiffMedianHourlyPercent") limit=10)}}{{#if DiffMedianHourlyPercent}}{{EmployerName}}, {{DiffMedianHourlyPercent}}{{/if}}%
+{{/each}}
